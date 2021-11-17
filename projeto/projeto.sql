@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Nov-2021 às 01:11
--- Versão do servidor: 10.4.13-MariaDB
--- versão do PHP: 7.4.7
+-- Tempo de geração: 17-Nov-2021 às 16:31
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,8 @@ CREATE TABLE `estados` (
 
 INSERT INTO `estados` (`id`, `sigla`, `nome`) VALUES
 (1, 'SC', 'Santa Catarina'),
-(2, 'RS', 'Rio Grande do Sul');
+(2, 'RS', 'Rio Grande do Sul'),
+(4, 'PR', 'Paraná');
 
 -- --------------------------------------------------------
 
@@ -85,9 +86,12 @@ INSERT INTO `menu` (`id`, `endereco`, `classe`, `descricao`, `ordem`) VALUES
 (1, '?modulo=pessoas&pagina=cadastro', 'btn btn-info mx-2 mt-2', 'Cad.Pessoa', 3),
 (2, '?modulo=pessoas&pagina=listagem', 'btn btn-info mx-2 mt-2', 'Pessoas', 2),
 (3, '?', 'btn btn-danger mx-2 mt-2', 'Home', 1),
-(4, '?modulo=estados&pagina=listagem', 'btn btn-info mx-2 mt-2', 'Estados', 3),
-(5, '?modulo=cidades&pagina=listagem', 'btn btn-info mx-2 mt-2', 'Cidades', 4),
-(6, '?modulo=cidades&pagina=cadastro', 'btn btn-info mx-2 mt-2', 'Cad.Cidade', 5);
+(4, '?modulo=estados&pagina=listagem', 'btn btn-info mx-2 mt-2', 'Estados', 4),
+(5, '?modulo=cidades&pagina=listagem', 'btn btn-info mx-2 mt-2', 'Cidades', 6),
+(6, '?modulo=cidades&pagina=cadastro', 'btn btn-info mx-2 mt-2', 'Cad.Cidade', 7),
+(7, '?modulo=estados&pagina=cadastro', 'btn btn-info mx-2 mt-2', 'Cad.Estado', 5),
+(8, '?modulo=produtos&pagina=cadastro', 'btn btn-info mx-2 mt-2', 'Cad.Produtos', 9),
+(9, '?modulo=produtos&pagina=listagem', 'btn btn-info mx-2 mt-2', 'Produtos', 8);
 
 -- --------------------------------------------------------
 
@@ -106,8 +110,27 @@ CREATE TABLE `pessoas` (
 
 INSERT INTO `pessoas` (`id`, `nome`) VALUES
 (1, 'Marcondes 1'),
-(2, 'Marcondes 2.'),
-(3, '');
+(2, 'Marcondes 2.');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produtos`
+--
+
+CREATE TABLE `produtos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `valor` decimal(65,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `nome`, `valor`) VALUES
+(1, 'Pneu', '450'),
+(2, 'Lanterna dianteira gol 2010', '325');
 
 -- --------------------------------------------------------
 
@@ -163,6 +186,12 @@ ALTER TABLE `pessoas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -177,24 +206,30 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `cidades`
 --
 ALTER TABLE `cidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `estados`
 --
 ALTER TABLE `estados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `pessoas`
 --
 ALTER TABLE `pessoas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `produtos`
+--
+ALTER TABLE `produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
