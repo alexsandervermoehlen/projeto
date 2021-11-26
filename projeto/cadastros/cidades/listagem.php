@@ -18,6 +18,25 @@
         //}
  
         $result = $stmt->fetchAll();
+
+        $iQuantidadeRegistros = count($result);
+        $iTotalPaginas = ceil($iQuantidadeRegistros / NUM_REG_POR_PAGINA);
+        $iControleRegistros = $iQuantidadeRegistros;
+
+        for ($i = 1; $i <= $iTotalPaginas; $i++) {
+            $aRegistrosPagina[$i] = [];
+            $iNumerosRegistrosPorPag = NUM_REG_POR_PAGINA <= $iControleRegistros ? NUM_REG_POR_PAGINA :  $iControleRegistros;
+
+            $iCount = 1;
+
+            while ($iCount <= $iNumerosRegistrosPorPag) {
+                array_push($aRegistrosPagina[$i], array_shift($result));
+                $iCount++;
+                $iControleRegistros--;
+            }
+
+            $iCount = 1;
+        }
 ?>
 <table border="1" class="table table-striped">
 <tr>
@@ -28,8 +47,9 @@
             <td>Ação</td>
 </tr>
 <?php
-        if ( count($result) ) {
-            foreach($result as $row) {
+
+        if ( $iQuantidadeRegistros) {
+            foreach($aRegistrosPagina[$_GET['page']] as $row) {
                 ?>
                 <tr>
                     <td><?=$row['id']?></td>
@@ -43,6 +63,21 @@
                 </tr>
                 <?php
             }
+            ?>
+
+            <tr>
+                <td colspan="5" style="text-align: center">Páginas: 
+                    
+                    <?php 
+                        for ($i = 1; $i <= $iTotalPaginas; $i++) {
+                            ?>
+                            <a href="?modulo=cidades&pagina=listagem&page=<?=$i?>"><?=' '.$i. ' '?></a>
+                            <?php
+                        }
+                    ?>
+                </td>
+            </tr>
+            <?php
         } else {
             echo "Nenhum resultado retornado.";
         }

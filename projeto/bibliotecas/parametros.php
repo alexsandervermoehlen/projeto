@@ -9,3 +9,5 @@
     define('DB_USER','root');
     define('DB_SENHA','');
     define('DB_BASE','projeto');
+
+    define('NUM_REG_POR_PAGINA', 10);
